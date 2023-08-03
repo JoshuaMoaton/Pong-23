@@ -115,6 +115,8 @@ def handle_collision(ball, left_paddle, right_paddle):
         if ball.y >= left_paddle.y and ball.y <= left_paddle.y + left_paddle.height:
             if ball.x - ball.radius <= left_paddle.x + left_paddle.width:
                 ball.x_vel *= -1
+                pong_hit_L = mixer.sound('hit.wav')
+                pong_hit_L.play()
 
                 middle_y = left_paddle.y + left_paddle.height / 2
                 difference_in_y = middle_y - ball.y
@@ -126,6 +128,8 @@ def handle_collision(ball, left_paddle, right_paddle):
         if ball.y >= right_paddle.y and ball.y <= right_paddle.y + right_paddle.height:
             if ball.x + ball.radius >= right_paddle.x:
                 ball.x_vel *= -1
+                pong_hit_R = mixer.sound('hit.wav')
+                pong_hit_R.play()
 
                 middle_y = right_paddle.y + right_paddle.height / 2
                 difference_in_y = middle_y - ball.y
@@ -177,9 +181,13 @@ def main():
 
         if ball.x < 0:
             right_score += 1
+            R_point = mixer.sound('point.wav')
+            R_point.play()
             ball.reset()
         elif ball.x > WIDTH:
             left_score += 1
+            L_point = mixer.sound('point.wav')
+            L_point.play()
             ball.reset()
 
         won = False
